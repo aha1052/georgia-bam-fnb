@@ -10,3 +10,12 @@ function updateActive(){const sections=[...document.querySelectorAll('main secti
 let waiting=false;window.addEventListener('scroll',()=>{if(!waiting){waiting=true;requestAnimationFrame(()=>{updateActive();waiting=false;});}},{passive:true});
 navLinks.forEach(a=>a.addEventListener('click',()=>{if(window.matchMedia('(max-width:900px)').matches)toc.open=false;}));
 updateActive();
+
+// Keep the current section when changing language.
+document.querySelectorAll('.language-switch a').forEach(link=>{
+  link.addEventListener('click',()=>{
+    const target=new URL(link.getAttribute('href'),window.location.href);
+    target.hash=window.location.hash;
+    link.href=target.href;
+  });
+});
